@@ -1,0 +1,123 @@
+composer create-project laravel/laravel gp-wiki-v1
+
+cd gp-wiki-v2
+
+composer require laravel/ui
+
+php artisan ui bootstrap --auth
+
+npm install
+
+npm run dev
+
+npm run dev
+
+composer require mateusjunges/laravel-acl
+
+npm run dev
+
+php artisan acl:install
+
+.env file
+	set database config
+
+php artisan migrate
+
+#######################################################################################
+############################# Basisinstallation erledigt ##############################
+#######################################################################################
+
+php artisan make:model Category -a
+php artisan make:model Post -a
+
+php artisan make:controller PermissionController --resource
+php artisan make:controller GroupController --resource
+php artisan make:controller UserController --resource
+
+ressources/views
+
+    add folder  "users"
+        add file    index.blade.php
+                    create.blade.php
+                    edit.blade.php
+
+    add folder  "groups"
+        add file    index.blade.php
+                    create.blade.php
+                    edit.blade.php
+
+    add folder  "permissions"
+        add file    index.blade.php
+                    create.blade.php
+                    edit.blade.php
+
+#######################################################################################
+############################# Basisstruktur erstellt ##################################
+#######################################################################################
+
+adaptation of app/http/models
+
+    Category.php
+
+        add     SoftDelete      in use
+
+        add     protected $fillable = [
+                        'category'
+                    ];
+
+    Post.php
+
+        add     SoftDelete      in use
+
+        add     protected $fillable = [
+                        'title',
+                        'content',
+                        'category_id'
+                    ];
+
+adaptation of database/migrations
+
+	create_categories_table
+
+        add     $table->string('category');
+                $table->softDeletes();
+
+    create_posts_table
+
+        add     $table->string('title');
+                $table->string('content');
+                $table->softDeletes();
+                $table->unsignedBigInteger('category_id');
+
+php artisan migrate
+
+im myphpadmin
+    füge INDEX auf Feld posts.category_id hinzu
+    verknüpfe posts.category_id mit category.id
+
+#######################################################################################
+######### Models vorbereitet & Tables hinzugefügt #####################################
+#######################################################################################
+
+adaptation of routes/web.php
+
+	add the following routes/web
+
+		Route::resource('permissions','\App\Http\Controllers\PermissionController');
+        Route::resource('groups','\App\Http\Controllers\GroupController');
+        Route::resource('users','\App\Http\Controllers\UserController');
+
+#######################################################################################
+############################# Routes hinzugefügt ######################################
+#######################################################################################
+
+npm install -D tailwindcss
+
+npx tailwindcss init
+
+npm run dev
+
+#######################################################################################
+############################# Tailwind CSS added ######################################
+#######################################################################################
+
