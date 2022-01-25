@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\UserViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +59,8 @@ Route::get('/moneyIndex',[PostController::class,'moneyIndex'])->name('money.inde
 Route::get('/itIndex',[PostController::class,'itIndex'])->name('it.index')->middleware('permissionOrGroup:it|admin');
 Route::get('/businessIndex',[PostController::class,'businessIndex'])->name('business.index')->middleware('permissionOrGroup:business|admin');
 
-/*
-Route::get('pos-business.index',[PostController::class,''])->name('pos-business.index');
-Route::get('pos-business.create',[PostController::class,''])->name('pos-business.create');
-Route::post('pos-business.create',[PostController::class,''])->name('pos-business.store');
-Route::get('pos-business.edit/{id}',[PostController::class,''])->name('pos-business.edit');
-Route::post('pos-business.edit',[PostController::class,''])->name('pos-business.update');
-*/
 
-
+Route::get('/userMoneyIndex',[UserViewController::class,'userMoneyIndex'])->name('userview.moneyindex')->middleware('permissionOrGroup:money|admin');
+Route::get('/userItIndex',[UserViewController::class,'userItIndex'])->name('userview.itindex')->middleware('permissionOrGroup:it|admin');
+Route::get('/userBusinessIndex',[UserViewController::class,'userBusinessIndex'])->name('userview.businessindex')->middleware('permissionOrGroup:business|admin');
 
