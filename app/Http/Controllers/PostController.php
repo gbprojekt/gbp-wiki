@@ -10,19 +10,6 @@ use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     /**
-     *
-     * ##########################################################################################################
-     * ##########################################################################################################
-     * ##########################################################################################################
-     *
-     *      ADMIN ROUTES
-     *
-     * ##########################################################################################################
-     * ##########################################################################################################
-     * ##########################################################################################################
-     */
-
-    /**
      * Display a listing of the resource.
      */
     public function postsAdminIndex()
@@ -31,7 +18,6 @@ class PostController extends Controller
         $categories = Category::all();
         return view('posts.admin-index',compact('posts','categories'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -40,7 +26,6 @@ class PostController extends Controller
         $categories = Category::all();
         return view('posts.admin-create',compact('categories'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -49,11 +34,55 @@ class PostController extends Controller
         $validateData = $request->validate([
             'title' => 'required|string|min:5|max:255',
             'content' => 'required|string|max:10000',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
         $post = new Post;
+        /**
+         * here we check if one of the categories is choosen
+         * then we have to check, which category is choosen
+         * we save only one category - the "first" category
+         */
+        if($request['categories'] != null)
+        {
+            if($request['categories'][0] != null)
+            {
+                $post->category_id = $request['categories'][0];
+            }
+            elseif($request['categories'][1] != null)
+            {
+                $post->category_id = $request['categories'][1];
+            }
+            elseif($request['categories'][2] != null)
+            {
+                $post->category_id = $request['categories'][2];
+            }
+        }
+        else
+        {
+            $post->category_id = null;
+        }
+        /**
+         * we save the title and content
+         */
         $post->title = $request['title'];
         $post->content = $request['content'];
+        /**
+         * here we check if we have a uploaded file
+         * if yes we store the file in the IMG folder
+         * and we store the filename in the database
+         */
+        if($request->file != null)
+        {
+            $imageName = time().'.'.$request->file->extension();
+            $request->file->move(public_path('img'), $imageName);
+            $post->image = $imageName;
+        }
+        /**
+         * here we check if the active checkbox is set
+         * if it is set then we save it
+         * otherwise we push NULL to the database
+         */
         if($request['active'])
         {
             $post->active = $request['active'];
@@ -62,122 +91,73 @@ class PostController extends Controller
         {
             $post->active = 0;
         }
-        $post->category_id = $request['categories'][0];
         $post->save();
         return redirect('/postsAdminIndex')->with('success','Beitrag erfolgreich erstellt.');
     }
-
     /**
      * Show the form for editing the specified resource.
      */
     public function postsAdminEdit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $categories = Category::all();
+        return view('posts.admin-edit',compact('post','categories'));
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function postsAdminUpdate(Request $request, $id)
     {
-        //
-    }
+        $post = Post::findOrFail($id);
 
+        $validateData = $request->validate([
+            'title' => 'required|string|min:5|max:255',
+            'content' => 'required|string|max:10000',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'active' => 'boolean'
+        ]);
+        if($request['categories'] != null)
+        {
+            if($request['categories'][0] != null)
+            {
+                $post->category_id = $request['categories'][0];
+            }
+            elseif($request['categories'][1] != null)
+            {
+                $post->category_id = $request['categories'][1];
+            }
+            elseif($request['categories'][2] != null)
+            {
+                $post->category_id = $request['categories'][2];
+            }
+        }
+        else
+        {
+            $post->category_id = null;
+        }
+        if($request->title != null)
+        {
+            $post->title = $request->title;
+        }
+        if($request->content != null)
+        {
+            $post->content = $request->content;
+        }
+        if($request->file != null)
+        {
+            $imageName = time().'.'.$request->file->extension();
+            $request->file->move(public_path('img'), $imageName);
+            $post->image = $imageName;
+        }
+        $post->save();
+        return redirect('/postsAdminIndex')->with('success','Beitrag erfolgreich aktualisiert.');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function postsAdminDestroy($id)
     {
-        //
-    }
-
-    /**
-     *
-     * ##########################################################################################################
-     * ##########################################################################################################
-     * ##########################################################################################################
-     *
-     *      USER ROUTES
-     *
-     * ##########################################################################################################
-     * ##########################################################################################################
-     * ##########################################################################################################
-     */
-
-    private function checkCategoryActive($id)
-    {
-       $category = Category::findOrFail($id);
-       $active = 0;
-       if($category->active)
-       {
-           $active = 1;
-       }
-       return $active;
-    }
-
-    /**
-     * Display a listing of all Posts in the category Money
-     */
-    public function moneyIndex()
-    {
-        $checkCategoryActive = $this->checkCategoryActive('1');
-        $categoryName = 'Finanzen';
-        if($checkCategoryActive)
-        {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','1')
-                                    ->where('active','=','1')
-                                    ->orderBy('id')
-                                    ->get();
-        }
-        else
-        {
-            $posts = NULL;
-        }
-        return view('posts.user-index',compact('posts','categoryName'));
-    }
-
-    /**
-     * Display a listing of all Posts in the category IT
-     */
-    public function itIndex()
-    {
-        $checkCategoryActive = $this->checkCategoryActive('2');
-        $categoryName = 'IT';
-        if($checkCategoryActive)
-        {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','2')
-                                    ->where('active','=','1')
-                                    ->orderBy('id')
-                                    ->get();
-        }
-        else
-        {
-            $posts = NULL;
-        }
-        return view('posts.user-index',compact('posts','categoryName'));
-    }
-
-    /**
-     * Display a listing of all Posts in the category Business
-     */
-    public function businessIndex()
-    {
-        $checkCategoryActive = $this->checkCategoryActive('3');
-        $categoryName = 'Business';
-        if($checkCategoryActive)
-        {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','3')
-                                    ->where('active','=','1')
-                                    ->orderBy('id')
-                                    ->get();
-        }
-        else
-        {
-            $posts = NULL;
-        }
-        return view('posts.user-index',compact('posts','categoryName'));
+        // we do not destroy any post
+        // we use the softDelete function
     }
 }

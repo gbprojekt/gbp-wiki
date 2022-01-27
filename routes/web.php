@@ -54,13 +54,6 @@ Route::get('/postsAdminDestroy/{id}',[PostController::class,'postsAdminDestroy']
 |--------------------------------------------------------------------------
 */
 
-
-Route::get('/moneyIndex',[PostController::class,'moneyIndex'])->name('money.index')->middleware('permissionOrGroup:money|admin');
-Route::get('/itIndex',[PostController::class,'itIndex'])->name('it.index')->middleware('permissionOrGroup:it|admin');
-Route::get('/businessIndex',[PostController::class,'businessIndex'])->name('business.index')->middleware('permissionOrGroup:business|admin');
-
-
 Route::get('/userMoneyIndex',[UserViewController::class,'userMoneyIndex'])->name('userview.moneyindex')->middleware('permissionOrGroup:money|admin');
 Route::get('/userItIndex',[UserViewController::class,'userItIndex'])->name('userview.itindex')->middleware('permissionOrGroup:it|admin');
 Route::get('/userBusinessIndex',[UserViewController::class,'userBusinessIndex'])->name('userview.businessindex')->middleware('permissionOrGroup:business|admin');
-
