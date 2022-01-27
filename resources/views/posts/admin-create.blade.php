@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-8 offset-col-2">
                 <h3 class="text-left col">Beitrag hinzufügen</h3>
-                <form action="{{ route('posts.admincreate') }}" method="POST">
+                <form action="{{ route('posts.admincreate') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <p>Wähle die zugehörige Kategorie:</p>
@@ -38,6 +38,9 @@
                         <label for="content" class="col-form-label">Beitrag</label>
                         <textarea class="form-control" value="{{old('content')}}" rows="10" cols="50" name="content">
                         </textarea>
+                    </div>
+                    <div class="form-group my-4">
+                        <input type="file" name="file" class="form-control" />
                     </div>
                     <div class="form-group my-4">
                         <p>Aktiv:</p>

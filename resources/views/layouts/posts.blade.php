@@ -53,6 +53,24 @@
 
                         @anygroup('money','admin')
                             <li class="mx-1">
+                                <a href="{{ route('money.index') }}" class="btn button-blue btn-outline-secondary">Finanzen</a>
+                            </li>
+                        @endanygroup
+
+                        @anygroup('it','admin')
+                            <li class="mx-1">
+                                <a href="{{ route('it.index') }}" class="btn button-blue btn-outline-secondary">IT</a>
+                            </li>
+                        @endanygroup
+
+                        @anygroup('business','admin')
+                            <li class="mx-1">
+                                <a href="{{ route('business.index') }}" class="btn button-blue btn-outline-secondary">Business</a>
+                            </li>
+                        @endgroup
+
+                        @anygroup('money','admin')
+                            <li class="mx-1">
                                 <a href="{{ route('userview.moneyindex') }}" class="btn button-red btn-outline-secondary">User Finanzen</a>
                             </li>
                         @endanygroup
@@ -110,7 +128,12 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @yield('tite')
+            </div>
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

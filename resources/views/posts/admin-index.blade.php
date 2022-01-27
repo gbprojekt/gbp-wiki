@@ -35,6 +35,7 @@
                             <th>Kategorie</th>
                             <th>Titel</th>
                             <th>Inhalt</th>
+                            <th>Bild</th>
                             <th>Aktiv</th>
                             <th>Ändern</th>
                         </tr>
@@ -52,6 +53,7 @@
                             </td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->content }}</td>
+                            <td>{{ $post->image }}
                             <td>@if($post->active) Ja @else Nein @endif</td>
                             <td>
                                 <a href="{{ route('posts.adminedit', $post->id) }}">Ändern</a>

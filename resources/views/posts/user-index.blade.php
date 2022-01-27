@@ -11,6 +11,7 @@
                             <th>ID</th>
                             <th>Titel</th>
                             <th>Inhalt</th>
+                            <th>Bild</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,11 +21,13 @@
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->content }}</td>
+                                <td>{{ $post->image }}</td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
                             <td>Keine Beiträge vorhanden.</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
