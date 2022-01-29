@@ -53,19 +53,19 @@
 
                         @anygroup('money','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.moneyindex') }}" class="btn button-red btn-outline-secondary">User Finanzen</a>
+                                <a href="{{ route('userview.moneyindex') }}" class="btn button-red btn-outline-secondary">Finanzen</a>
                             </li>
                         @endanygroup
 
                         @anygroup('it','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.itindex') }}" class="btn button-red btn-outline-secondary">User IT</a>
+                                <a href="{{ route('userview.itindex') }}" class="btn button-red btn-outline-secondary">IT</a>
                             </li>
                         @endanygroup
 
                         @anygroup('business','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.businessindex') }}" class="btn button-red btn-outline-secondary">User Business</a>
+                                <a href="{{ route('userview.businessindex') }}" class="btn button-red btn-outline-secondary">Business</a>
                             </li>
                         @endgroup
                     </ul>

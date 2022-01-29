@@ -6,11 +6,18 @@
             @if($post->image != null)
                 @if($loop->iteration % 2 == 0)
                     <div class="container">
+
                         <div class="row">
-                            <div class="col-12 my-4">
-                                <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
-                            </div>
+                            @if($post->title != null)
+                                <div class="col-12 my-4">
+                                    <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
+                                </div>
+                            @else
+                                <div class="col-12 my-2">
+                                </div>
+                            @endif
                         </div>
+
                         <div class="row">
                             <div class="col-5 offset-1">
                                 {{$post->content}}
@@ -19,14 +26,22 @@
                                 <img src="{{asset('img/'.$post->image)}}" class="img-fluid" />
                             </div>
                         </div>
+
                     </div>
                 @else
                     <div class="container">
+
                         <div class="row">
-                            <div class="col-12 my-4">
-                                <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
-                            </div>
+                            @if($post->title != null)
+                                <div class="col-12 my-4">
+                                    <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
+                                </div>
+                            @else
+                                <div class="col-12 my-2">
+                                </div>
+                            @endif
                         </div>
+
                         <div class="row">
                             <div class="col-4 offset-1">
                                 <img src="{{asset('img/'.$post->image)}}" class="img-fluid" />
@@ -35,20 +50,29 @@
                                 {{$post->content}}
                             </div>
                         </div>
+
                     </div>
                 @endif
             @else
                 <div class="container">
+
                     <div class="row">
-                        <div class="col-12 my-4">
-                            <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
-                        </div>
+                        @if($post->title != null)
+                            <div class="col-12 my-4">
+                                <h3 class="py-3 bg-secondary text-white text-center">{{$post->title}}</h3>
+                            </div>
+                        @else
+                            <div class="col-12 my-2">
+                            </div>
+                        @endif
                     </div>
+
                     <div class="row">
                         <div class="col-10 offset-1">
                             <p>{{$post->content}}</p>
                         </div>
                     </div>
+
                 </div>
             @endif
         @endforeach

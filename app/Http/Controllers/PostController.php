@@ -32,7 +32,7 @@ class PostController extends Controller
     public function postsAdminStore(Request $request)
     {
         $validateData = $request->validate([
-            'title' => 'required|string|min:5|max:255',
+            'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
@@ -111,7 +111,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $validateData = $request->validate([
-            'title' => 'required|string|min:5|max:255',
+            'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'

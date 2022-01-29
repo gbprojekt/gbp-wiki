@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class UserViewController extends Controller
 {
@@ -19,57 +20,46 @@ class UserViewController extends Controller
        return $active;
     }
 
-    public function userMoneyIndex()
+    public function userViewPosts(Request $request)
     {
-        $checkCategoryActive = $this->checkCategoryActive('1');
-        if($checkCategoryActive)
-        {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','1')
-                                    ->where('active','=','1')
-                                    ->orderBy('id')
-                                    ->get();
-        }
-        else
-        {
-            $posts = NULL;
-        }
-        return view('userViews.moneyIndex',compact('posts'));
-    }
+        $currentURL = $request->segment(1);
 
-    public function userItIndex()
-    {
-        $checkCategoryActive = $this->checkCategoryActive('2');
-        if($checkCategoryActive)
+        if($currentURL === 'userMoneyIndex')
         {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','2')
-                                    ->where('active','=','1')
-                                    ->orderBy('id')
-                                    ->get();
+            $checkCategoryActive = $this->checkCategoryActive('1');
+            $cat_id = '1';
         }
-        else
+        elseif($currentURL === 'userItIndex')
         {
-            $posts = NULL;
+            $checkCategoryActive = $this->checkCategoryActive('2');
+            $cat_id = '2';
         }
-        return view('userViews.itIndex',compact('posts'));
-    }
+        elseif($currentURL === 'userBusinessIndex')
+        {
+            $checkCategoryActive = $this->checkCategoryActive('3');
+            $cat_id = '3';
+        }
 
-    public function userBusinessIndex()
-    {
-        $checkCategoryActive = $this->checkCategoryActive('3');
         if($checkCategoryActive)
         {
-            $posts = Post::select('*')
-                                    ->where('category_id','=','3')
+            $activePosts = Post::select('*')
+                                    ->where('category_id','=',$cat_id)
                                     ->where('active','=','1')
                                     ->orderBy('id')
                                     ->get();
+            if($activePosts->count() > 0)
+            {
+                $posts = $activePosts;
+            }
+            else
+            {
+                $posts = NULL;
+            }
         }
         else
         {
             $posts = NULL;
         }
-        return view('userViews.businessIndex',compact('posts'));
+        return view('userViews.userViewPosts',compact('posts'));
     }
 }
