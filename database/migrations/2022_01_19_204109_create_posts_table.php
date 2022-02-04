@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title')->nullable;
             $table->longText('content');
-            $table->string('image')->nullable;
+            $table->string('image')->default('unknown')->nullable;
             $table->boolean('active')->default(0);
             $table->timestamps();
             $table->softDeletes();

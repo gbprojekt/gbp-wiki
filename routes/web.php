@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserViewController;
+use App\Models\Subcategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,13 @@ Route::post('/categoriesAdminCreate',[CategoryController::class,'categoriesAdmin
 Route::get('/categoriesAdminEdit/{id}',[CategoryController::class,'categoriesAdminEdit'])->name('categories.adminedit')->middleware('permissionOrGroup:admin');
 Route::post('/categoriesAdminEdit',[CategoryController::class,'categoriesAdminUpdate'])->name('categories.adminupdate')->middleware('permissionOrGroup:admin');
 Route::get('/categoriesAdminDestroy/{id}',[CategoryController::class,'categoriesAdminDestroy'])->name('categories.admindestroy')->middleware('permissionOrGroup:admin');
+
+Route::get('/subcategoriesAdminIndex',[SubcategoryController::class,'subcategoriesAdminIndex'])->name('subcategories.adminindex')->middleware('permissionOrGroup:admin');
+Route::get('/subcategoriesAdminCreate',[SubcategoryController::class,'subcategoriesAdminCreate'])->name('subcategories.admincreate')->middleware('permissionOrGroup:admin');
+Route::post('/subcategoriesAdminCreate',[SubcategoryController::class,'subcategoriesAdminStore'])->name('subcategories.adminstore')->middleware('permissionOrGroup:admin');
+Route::get('/subcategoriesAdminEdit/{id}',[SubcategoryController::class,'subcategoriesAdminEdit'])->name('subcategories.adminedit')->middleware('permissionOrGroup:admin');
+Route::post('/subcategoriesAdminEdit',[SubcategoryController::class,'subcategoriesAdminUpdate'])->name('subcategories.adminupdate')->middleware('permissionOrGroup:admin');
+Route::get('/subcategoriesAdminDestroy/{id}',[SubcategoryController::class,'subcategoriesAdminDestroy'])->name('subcategories.admindestroy')->middleware('permissionOrGroup:admin');
 
 Route::get('/postsAdminIndex',[PostController::class,'postsAdminIndex'])->name('posts.adminindex')->middleware('permissionOrGroup:admin');
 Route::get('/postsAdminCreate',[PostController::class,'postsAdminCreate'])->name('posts.admincreate')->middleware('permissionOrGroup:admin');

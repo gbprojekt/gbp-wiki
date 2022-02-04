@@ -54,6 +54,9 @@
                                 <a href="{{ route('categories.adminindex') }}" class="btn btn-dark btn-outline-secondary">Kategorien</a>
                             </li>
                             <li class="mx-1">
+                                <a href="{{ route('subcategories.adminindex') }}" class="btn btn-dark btn-outline-secondary">Subkategorien</a>
+                            </li>
+                            <li class="mx-1">
                                 <a href="{{ route('posts.adminindex') }}" class="btn btn-dark btn-outline-secondary">Beiträge</a>
                             </li>
                         @endgroup

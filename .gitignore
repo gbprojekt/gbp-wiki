@@ -13,3 +13,14 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+TODO.txt
+/database/factories/CategoryFactory.php
+/database/factories/SubcategoryFactory.php
+/database/factories/PostFactory.php
+/database/factories/UserFactory.php
+/database/seeders/CategorySeeder.php
+/database/seeders/SubcategorySeeder.php
+/database/seeders/PostSeeder.php
+/database/seeders/UserSeeder.php
+/database/seeders/GroupSeeder.php
+/database/seeders/PermissionSeeder.php
