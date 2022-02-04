@@ -22,8 +22,20 @@
                 <form action="{{ route('subcategories.admincreate') }}" method="POST">
                     @csrf
                     <div class="form-group">
+                        <p>Wähle die zugehörige Kategorie:</p>
+                        @foreach($categories as $category)
+                            <div class="form-check form-check-inline form-switch">
+                                <input class="form-check-input" type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}">
+                                <label class="form-check-label" for="{{ $category->name }}">{{ $category->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
                         <label for="name" class="col-form-label">Name der Subkategorie</label>
                         <input class="form-control" type="text" value="{{old('name')}}" id="name" name="name"/>
+                    </div>
+                    <div class="form-group my-4">
+                        <input type="file" name="file" class="form-control" />
                     </div>
                     <div class="form-group my-4">
                         <p>Aktiv:</p>

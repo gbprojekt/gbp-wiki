@@ -22,6 +22,15 @@
                 <form action="{{ route('subcategories.adminupdate', $subcategory->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
+                        <p>Wähle die zugehörige Kategorie:</p>
+                        @foreach($categories as $category)
+                            <div class="form-check form-check-inline form-switch">
+                                <input class="form-check-input" type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" @if($category->id === $post->category_id) checked @endif>
+                                <label class="form-check-label" for="{{ $category->name }}">{{ $category->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
                         <label for="name" class="col-form-label">Name der Subkategorie</label>
                         <input class="form-control" type="text" value="{{ $subcategory->name }}" id="name" name="name"/>
                     </div>

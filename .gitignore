@@ -14,6 +14,7 @@ yarn-error.log
 /.idea
 /.vscode
 TODO.txt
+temp.txt
 /database/factories/CategoryFactory.php
 /database/factories/SubcategoryFactory.php
 /database/factories/PostFactory.php

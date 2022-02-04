@@ -34,10 +34,25 @@ class SubcategoryController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required|string|min:1|max:255|unique:categories,name',
-            'image' => 'image',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
-        Subcategory::create($validateData);
+
+        $subcategory = new Subcategory;
+
+        if($request['categories'] != null)
+        {
+
+            /**
+             * iterate through array
+             */
+
+        }
+        else
+        {
+            $subcategory->category_id = null;
+        }
+
         return redirect('/subcategoriesAdminIndex')->with('success','Unterkategorie erfolgreich erstellt.');
     }
 
@@ -58,6 +73,7 @@ class SubcategoryController extends Controller
         $subcategories = Subcategory::findOrFail($id);
         $validateData = $request->validate([
             'name' => 'required|string|min:1|max:255|unique:categories,name',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
         $subcategories->name = $validateData['name'];

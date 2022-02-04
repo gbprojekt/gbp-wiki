@@ -23,10 +23,10 @@
                     @csrf
                     <div class="form-group">
                         <p>Wähle die zugehörige Kategorie:</p>
-                        @foreach($categories as $category)
+                        @foreach($subcategories as $subcategory)
                             <div class="form-check form-check-inline form-switch">
-                                <input class="form-check-input" type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}">
-                                <label class="form-check-label" for="{{ $category->name }}">{{ $category->name }}</label>
+                                <input class="form-check-input" type="checkbox" id="{{ $subcategory->id }}" name="categories[]" value="{{ $subcategory->id }}">
+                                <label class="form-check-label" for="{{ $subcategory->name }}">{{ $subcategory->name }}</label>
                             </div>
                         @endforeach
                     </div>

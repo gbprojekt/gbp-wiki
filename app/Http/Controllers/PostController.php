@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,16 +16,16 @@ class PostController extends Controller
     public function postsAdminIndex()
     {
         $posts = Post::all();
-        $categories = Category::all();
-        return view('posts.admin-index',compact('posts','categories'));
+        $subcategories = Subcategory::all();
+        return view('posts.admin-index',compact('posts','subcategories'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function postsAdminCreate()
     {
-        $categories = Category::all();
-        return view('posts.admin-create',compact('categories'));
+        $subcategories = Category::all();
+        return view('posts.admin-create',compact('subcategories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -43,24 +44,24 @@ class PostController extends Controller
          * then we have to check, which category is choosen
          * we save only one category - the "first" category
          */
-        if($request['categories'] != null)
+        if($request['subcategories'] != null)
         {
-            if($request['categories'][0] != null)
+            if($request['subcategories'][0] != null)
             {
-                $post->category_id = $request['categories'][0];
+                $post->subcategory_id = $request['subcategories'][0];
             }
-            elseif($request['categories'][1] != null)
+            elseif($request['subcategories'][1] != null)
             {
-                $post->category_id = $request['categories'][1];
+                $post->subcategory_id = $request['subcategories'][1];
             }
-            elseif($request['categories'][2] != null)
+            elseif($request['subcategories'][2] != null)
             {
-                $post->category_id = $request['categories'][2];
+                $post->subcategory_id = $request['subcategories'][2];
             }
         }
         else
         {
-            $post->category_id = null;
+            $post->subcategory_id = null;
         }
         /**
          * we save the title and content
@@ -100,8 +101,8 @@ class PostController extends Controller
     public function postsAdminEdit($id)
     {
         $post = Post::findOrFail($id);
-        $categories = Category::all();
-        return view('posts.admin-edit',compact('post','categories'));
+        $subcategories = Category::all();
+        return view('posts.admin-edit',compact('post','subcategories'));
     }
     /**
      * Update the specified resource in storage.
@@ -116,24 +117,24 @@ class PostController extends Controller
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
-        if($request['categories'] != null)
+        if($request['subcategories'] != null)
         {
-            if($request['categories'][0] != null)
+            if($request['subcategories'][0] != null)
             {
-                $post->category_id = $request['categories'][0];
+                $post->subcategory_id = $request['subcategories'][0];
             }
             elseif($request['categories'][1] != null)
             {
-                $post->category_id = $request['categories'][1];
+                $post->subcategory_id = $request['subcategories'][1];
             }
             elseif($request['categories'][2] != null)
             {
-                $post->category_id = $request['categories'][2];
+                $post->subcategory_id = $request['subcategories'][2];
             }
         }
         else
         {
-            $post->category_id = null;
+            $post->subcategory_id = null;
         }
         if($request->title != null)
         {
