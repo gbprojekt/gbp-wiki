@@ -8,7 +8,13 @@
     but I never found the time to go deeper into this framework
 </p>
 <p>
-    this will be a very basic project<br />
+    in addition to Laravel I use Bootstrap.CSS and Tailwind.CSS for this project<br />
+    I know both are CSS Frameworks to manage the Frontend<br />
+    Bootstrap.CSS is mainly used to define the layout (grids), but I use also some design possibilites<br />
+    I added Tailwind.CSS, because I wanted to learn how to use it and with this Framework I have more precise control for the design, if I need it
+</p>
+<p>this will be a very basic project</p>
+<p>
     a wiki which includes a user authentication<br />
     this user authentication manage, which parts of the wiki a user has access to
 </p>
