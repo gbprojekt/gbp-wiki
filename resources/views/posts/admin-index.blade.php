@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Kategorie</th>
+                            <th>Subkategorie</th>
                             <th>Titel</th>
                             <th>Inhalt</th>
                             <th>Bild</th>
@@ -45,9 +45,9 @@
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>
-                                @foreach($categories as $category)
-                                    @if($category->id === $post->category_id)
-                                        {{ $category->name }}
+                                @foreach($subcategories as $subcategory)
+                                    @if($subcategory->id === $post->subcategory_id)
+                                        {{ $subcategory->name }}
                                     @endif
                                 @endforeach
                             </td>

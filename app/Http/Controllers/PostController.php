@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class PostController extends Controller
      */
     public function postsAdminCreate()
     {
-        $subcategories = Category::all();
+        $subcategories = Subcategory::all();
         return view('posts.admin-create',compact('subcategories'));
     }
     /**
@@ -35,28 +34,26 @@ class PostController extends Controller
         $validateData = $request->validate([
             'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         $post = new Post;
         /**
-         * here we check if one of the categories is choosen
-         * then we have to check, which category is choosen
-         * we save only one category - the "first" category
+         * here we check if one of the subcategories is choosen
+         * then we have to check, which subcategory is choosen
+         * we save only one subcategory - the "first" subcategory
          */
         if($request['subcategories'] != null)
         {
-            if($request['subcategories'][0] != null)
+            $lengthArray = count($request->subcategories);
+            $i = 0;
+            while($i < $lengthArray)
             {
-                $post->subcategory_id = $request['subcategories'][0];
-            }
-            elseif($request['subcategories'][1] != null)
-            {
-                $post->subcategory_id = $request['subcategories'][1];
-            }
-            elseif($request['subcategories'][2] != null)
-            {
-                $post->subcategory_id = $request['subcategories'][2];
+                if($request['subcategories'][$i] != null)
+                {
+                    $post->subcategory_id = $request['subcategories'][$i];
+                    $i++;
+                }
             }
         }
         else
@@ -101,35 +98,33 @@ class PostController extends Controller
     public function postsAdminEdit($id)
     {
         $post = Post::findOrFail($id);
-        $subcategories = Category::all();
+        $subcategories = Subcategory::all();
         return view('posts.admin-edit',compact('post','subcategories'));
     }
     /**
      * Update the specified resource in storage.
      */
-    public function postsAdminUpdate(Request $request, $id)
+    public function postsAdminUpdate(Request $request)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($request->id);
 
         $validateData = $request->validate([
             'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         if($request['subcategories'] != null)
         {
-            if($request['subcategories'][0] != null)
+            $lengthArray = count($request->subcategory);
+            $i = 0;
+            while($i < $lengthArray)
             {
-                $post->subcategory_id = $request['subcategories'][0];
-            }
-            elseif($request['categories'][1] != null)
-            {
-                $post->subcategory_id = $request['subcategories'][1];
-            }
-            elseif($request['categories'][2] != null)
-            {
-                $post->subcategory_id = $request['subcategories'][2];
+                if($request['subcategories'][$i] != null)
+                {
+                    $post->subcategory_id = $request['subcategories'][$i];
+                    $i++;
+                }
             }
         }
         else
@@ -149,6 +144,10 @@ class PostController extends Controller
             $imageName = time().'.'.$request->file->extension();
             $request->file->move(public_path('img'), $imageName);
             $post->image = $imageName;
+        }
+        if($request->acitve != null)
+        {
+            $post->active = $request->active;
         }
         $post->save();
         return redirect('/postsAdminIndex')->with('success','Beitrag erfolgreich aktualisiert.');

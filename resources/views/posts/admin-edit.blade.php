@@ -19,8 +19,9 @@
         <div class="row">
             <div class="col-8 offset-col-2">
                 <h3 class="text-left col">Beitrag hinzufügen</h3>
-                <form action="{{ route('posts.adminupdate',$post->id) }}" method="POST">
+                <form action="{{ route('posts.adminupdate') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="id" id="id" value="{{ $post->id }}" />
                     <div class="form-group">
                         <p>Wähle die zugehörige Kategorie:</p>
                         @foreach($subcategories as $subcategory)

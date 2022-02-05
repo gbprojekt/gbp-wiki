@@ -32,28 +32,66 @@ class SubcategoryController extends Controller
      */
     public function subcategoriesAdminStore(Request $request)
     {
+
         $validateData = $request->validate([
             'name' => 'required|string|min:1|max:255|unique:categories,name',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
 
         $subcategory = new Subcategory;
-
+        /**
+         * here we check if one of the categories is choosen
+         * then we have to check, which category is choosen
+         * we save only one category - the "first" category
+         */
         if($request['categories'] != null)
         {
-
-            /**
-             * iterate through array
-             */
-
+            $lengthArray = count($request->categories);
+            $i = 0;
+            while($i < $lengthArray)
+            {
+                if($request['categories'][$i] != null)
+                {
+                    $subcategory->category_id = $request['categories'][$i];
+                    $i++;
+                }
+            }
         }
         else
         {
             $subcategory->category_id = null;
         }
-
-        return redirect('/subcategoriesAdminIndex')->with('success','Unterkategorie erfolgreich erstellt.');
+        /**
+         * we save the name of the Subcategory
+         */
+        $subcategory->name = $request['name'];
+        /**
+         * here we check if we have a uploaded file
+         * if yes we store the file in the IMG folder
+         * and we store the filename in the database
+         */
+        if($request->file != null)
+        {
+            $imageName = time().'.'.$request->file->extension();
+            $request->file->move(public_path('img'), $imageName);
+            $subcategory->image = $imageName;
+        }
+        /**
+         * here we check if the active checkbox is set
+         * if it is set then we save it
+         * otherwise we push NULL to the database
+         */
+        if($request['active'])
+        {
+            $subcategory->active = $request['active'];
+        }
+        else
+        {
+            $subcategory->active = 0;
+        }
+        $subcategory->save();
+        return redirect('/subcategoriesAdminIndex')->with('success','Subkategorie erfolgreich erstellt.');
     }
 
     /**
@@ -61,25 +99,56 @@ class SubcategoryController extends Controller
      */
     public function subcategoriesAdminEdit($id)
     {
-        $subcategories = Subcategory::findOrFail($id);
-        return view('subcategories.admin-edit',compact('subcategories'));
+        $subcategory = Subcategory::findOrFail($id);
+        $categories = Category::all();
+        return view('subcategories.admin-edit',compact('subcategory','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function subcategoriesAdminUpdate(Request $request, $id)
+    public function subcategoriesAdminUpdate(Request $request)
     {
-        $subcategories = Subcategory::findOrFail($id);
+        $subcategory = Subcategory::findOrFail($request->id);
         $validateData = $request->validate([
             'name' => 'required|string|min:1|max:255|unique:categories,name',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
-        $subcategories->name = $validateData['name'];
-        $subcategories->active = $validateData['active'];
-        $subcategories->save();
-        return redirect('/subcategoriesAdminIndex')->with('success','Unterkategorie erfolgreich geändert.');
+
+        if($request['categories'] != null)
+        {
+            $lengthArray = count($request->categories);
+            $i = 0;
+            while($i < $lengthArray)
+            {
+                if($request['categories'][$i] != null)
+                {
+                    $subcategory->category_id = $request['categories'][$i];
+                    $i++;
+                }
+            }
+        }
+        else
+        {
+            $subcategory->category_id = null;
+        }
+        if($request->name != null)
+        {
+            $subcategory->name = $validateData['name'];
+        }
+        if($request->file != null)
+        {
+            $imageName = time().'.'.$request->file->extension();
+            $request->file->move(public_path('img'), $imageName);
+            $subcategory->image = $imageName;
+        }
+        if($request->active != null)
+        {
+            $subcategory->active = $validateData['active'];
+        }
+        $subcategory->save();
+        return redirect('/subcategoriesAdminIndex')->with('success','Subkategorie erfolgreich geändert.');
     }
 
     /**

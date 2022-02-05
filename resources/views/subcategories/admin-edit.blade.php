@@ -19,13 +19,14 @@
         <div class="row">
             <div class="col-8 offset-col-2">
                 <h3 class="text-left col">Subkategorie ändern</h3>
-                <form action="{{ route('subcategories.adminupdate', $subcategory->id) }}" method="POST">
+                <form action="{{ route('subcategories.adminupdate') }}" method="POST">
                     @csrf
+                    <input class="form-control" type="hidden" value="{{ $subcategory->id }}" id="id" name="id"/>
                     <div class="form-group">
                         <p>Wähle die zugehörige Kategorie:</p>
                         @foreach($categories as $category)
                             <div class="form-check form-check-inline form-switch">
-                                <input class="form-check-input" type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" @if($category->id === $post->category_id) checked @endif>
+                                <input class="form-check-input" type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" @if($category->id === $subcategory->category_id) checked @endif>
                                 <label class="form-check-label" for="{{ $category->name }}">{{ $category->name }}</label>
                             </div>
                         @endforeach

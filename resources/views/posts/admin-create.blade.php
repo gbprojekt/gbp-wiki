@@ -22,10 +22,10 @@
                 <form action="{{ route('posts.admincreate') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <p>Wähle die zugehörige Kategorie:</p>
+                        <p>Wähle die zugehörige Subkategorie:</p>
                         @foreach($subcategories as $subcategory)
                             <div class="form-check form-check-inline form-switch">
-                                <input class="form-check-input" type="checkbox" id="{{ $subcategory->id }}" name="categories[]" value="{{ $subcategory->id }}">
+                                <input class="form-check-input" type="checkbox" id="{{ $subcategory->id }}" name="subcategories[]" value="{{ $subcategory->id }}">
                                 <label class="form-check-label" for="{{ $subcategory->name }}">{{ $subcategory->name }}</label>
                             </div>
                         @endforeach
@@ -36,8 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content" class="col-form-label">Beitrag</label>
-                        <textarea class="form-control" value="{{old('content')}}" rows="10" cols="50" name="content">
-                        </textarea>
+                        <textarea class="form-control" value="{{old('content')}}" rows="10" cols="50" name="content"></textarea>
                     </div>
                     <div class="form-group my-4">
                         <input type="file" name="file" class="form-control" />

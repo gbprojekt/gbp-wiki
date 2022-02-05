@@ -34,6 +34,7 @@
                         <th>ID</th>
                         <th>Kategorie</th>
                         <th>Subkategorie</th>
+                        <th>Bild</th>
                         <th>Aktiv</th>
                         <th>Ändern</th>
                     </tr>
@@ -50,6 +51,7 @@
                                 @endforeach
                             </td>
                             <td>{{ $subcategory->name }}</td>
+                            <td>{{ $subcategory->image }}</td>
                             <td>@if($subcategory->active) Ja @else Nein @endif</td>
                             <td>
                                 <a href="{{ route('subcategories.adminedit', $subcategory->id) }}">Ändern</a>
