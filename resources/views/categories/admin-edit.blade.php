@@ -21,6 +21,7 @@
                 <h3 class="text-left col">Kategorie ändern</h3>
                 <form action="{{ route('categories.adminupdate', $category->id) }}" method="POST">
                     @csrf
+                    <input type="hidden" class="form-control" value="{{ $category->id }}" id="id" name ="id" />
                     <div class="form-group">
                         <label for="objectOrder" class="col-form-label"></label>
                         <input class="form-control" type="numeric" value="{{ $category->objectOrder }}" id="objectOrder" name="objectOrder" />

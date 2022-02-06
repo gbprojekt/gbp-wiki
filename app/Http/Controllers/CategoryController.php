@@ -50,18 +50,40 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function categoriesAdminUpdate(Request $request, $id)
+    public function categoriesAdminUpdate(Request $request)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::findOrFail($request->id);
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
-            'name' => 'required|string|min:1|max:255|unique:categories,name',
+            'name' => 'required|string|min:1|max:255',
             'active' => 'boolean'
         ]);
-        $category->objectOrder = $validateData['objectOrder'];
-        $category->name = $validateData['name'];
-        $category->active = $validateData['active'];
+
+        if($request->objectOrder != $category->objectOrder)
+        {
+            $category->objectOrder = $validateData['objectOrder'];
+        }
+
+        if($request->name != $category->name)
+        {
+            $category->name = $validateData['name'];
+        }
+
+
+        if($request->active != $category->active)
+        {
+            if($request->active != null)
+            {
+                $category->active = $validateData['active'];
+            }
+            else
+            {
+                $category->active = 0;
+            }
+        }
+
         $category->save();
+
         return redirect('/categoriesAdminIndex')->with('success','Kategorie erfolgreich geändert.');
     }
 

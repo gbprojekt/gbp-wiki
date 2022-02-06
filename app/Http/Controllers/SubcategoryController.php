@@ -36,7 +36,7 @@ class SubcategoryController extends Controller
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         $subcategory = new Subcategory;
@@ -96,7 +96,7 @@ class SubcategoryController extends Controller
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         if($request['categories'] != null)
@@ -110,12 +110,13 @@ class SubcategoryController extends Controller
                     $subcategory->category_id = $request['categories'][$i];
                     $i++;
                 }
+                else
+                {
+                    $subcategory->category_id = null;
+                }
             }
         }
-        else
-        {
-            $subcategory->category_id = null;
-        }
+
         if($request->objectOrder != null)
         {
             $subcategory->objectOrder = $validateData['objectOrder'];
