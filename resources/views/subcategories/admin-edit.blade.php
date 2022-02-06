@@ -40,6 +40,9 @@
                         <input class="form-control" type="text" value="{{ $subcategory->name }}" id="name" name="name"/>
                     </div>
                     <div class="form-group my-4">
+                        <input type="file" name="file" class="form-control" />
+                    </div>
+                    <div class="form-group my-4">
                         <p>Aktiv:</p>
                         <label class="form-check-label" for="0">NEIN</label>
                         <div class="form-check form-check-inline form-switch">

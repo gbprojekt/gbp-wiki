@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('objectOrder');
             $table->string('title')->nullable;
             $table->longText('content');
-            $table->string('image')->nullable;
+            $table->binary('image')->nullable;
             $table->boolean('active')->default(0);
             $table->timestamps();
             $table->softDeletes();

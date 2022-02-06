@@ -56,7 +56,7 @@ class PostController extends Controller
         {
             $post->subcategory_id = null;
         }
-        $post->orderObject = $request['orderObject'];
+        $post->objectOrder = $request['objectOrder'];
         $post->title = $request['title'];
         $post->content = $request['content'];
         if($request->file != null)
