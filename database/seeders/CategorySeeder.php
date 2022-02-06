@@ -15,16 +15,19 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::create([
+            'objectOrder' => 1,
             'name' => 'Finanzen',
             'active' => 0
         ]);
 
         Category::create([
+            'objectOrder' => 2,
             'name' => 'IT',
             'active' => 0
         ]);
 
         Category::create([
+            'objectOrder' => 3,
             'name' => 'Business',
             'active' => 0
         ]);

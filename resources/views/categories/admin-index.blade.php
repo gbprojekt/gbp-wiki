@@ -31,7 +31,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Reihenfolge</th>
                         <th>Kategorie</th>
                         <th>Aktiv</th>
                         <th>Ändern</th>
@@ -40,7 +40,7 @@
                     <tbody>
                     @foreach($categories as $category)
                         <tr>
-                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->objectOrder }}</td>
                             <td>{{ $category->name }}</td>
                             <td>@if($category->active) Ja @else Nein @endif</td>
                             <td>

@@ -32,6 +32,10 @@
                         @endforeach
                     </div>
                     <div class="form-group">
+                        <label for="objectOrder" class="col-form-label">Reihenfolge</label>
+                        <input class="form-control" type="numeric" value="{{$post->objectOrder}}" id="objectOrder" name="objectOrder" />
+                    </div>
+                    <div class="form-group">
                         <label for="title" class="col-form-label">Beitragstitel</label>
                         <input class="form-control" type="text" value="{{$post->title}}" id="title" name="title"/>
                     </div>

@@ -32,6 +32,10 @@
                         @endforeach
                     </div>
                     <div class="form-group">
+                        <label for="objectOrder" class="col-form-label">Reihenfolge</label>
+                        <input class="form-control" type="numeric" value="{{ $subcategory->objectOrder }}" id="objectOrder" name="objectOrder" />
+                    </div>
+                    <div class="form-group">
                         <label for="name" class="col-form-label">Name der Subkategorie</label>
                         <input class="form-control" type="text" value="{{ $subcategory->name }}" id="name" name="name"/>
                     </div>

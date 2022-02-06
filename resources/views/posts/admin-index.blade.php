@@ -31,7 +31,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Reihenfolge</th>
                             <th>Subkategorie</th>
                             <th>Titel</th>
                             <th>Inhalt</th>
@@ -43,7 +43,7 @@
                     <tbody>
                     @foreach($posts as $post)
                         <tr>
-                            <td>{{ $post->id }}</td>
+                            <td>{{ $post->objectOrder }}</td>
                             <td>
                                 @foreach($subcategories as $subcategory)
                                     @if($subcategory->id === $post->subcategory_id)

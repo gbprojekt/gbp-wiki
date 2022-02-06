@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -18,6 +19,39 @@ class UserViewController extends Controller
            $active = 1;
        }
        return $active;
+    }
+
+    public function userViewIndex(Request $request)
+    {
+        $currentURL = $request->segment(1);
+
+        if($currentURL === 'userMoneyIndex')
+        {
+            $checkCategoryActive = $this->checkCategoryActive('1');
+            $cat_id = '1';
+        }
+        elseif($currentURL === 'userItIndex')
+        {
+            $checkCategoryActive = $this->checkCategoryActive('2');
+            $cat_id = '2';
+        }
+        elseif($currentURL === 'userBusinessIndex')
+        {
+            $checkCategoryActive = $this->checkCategoryActive('3');
+            $cat_id = '3';
+        }
+
+
+
+        $index = Subcategory::select('*')
+                                ->where('category_id','=',$cat_id)
+                                ->where('active','=','1')
+                                ->orderBy('objectOrder')
+                                ->get();
+
+
+
+        return view('userViews.userViewIndex',compact('index'));
     }
 
     public function userViewPosts(Request $request)
@@ -45,7 +79,7 @@ class UserViewController extends Controller
             $activePosts = Post::select('*')
                                     ->where('category_id','=',$cat_id)
                                     ->where('active','=','1')
-                                    ->orderBy('id')
+                                    ->orderBy('objectOrder')
                                     ->get();
             if($activePosts->count() > 0)
             {
@@ -62,10 +96,4 @@ class UserViewController extends Controller
         }
         return view('userViews.userViewPosts',compact('posts'));
     }
-
-    public function userViewSubMenue()
-    {
-
-    }
-
 }

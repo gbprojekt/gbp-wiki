@@ -30,6 +30,7 @@ class CategoryController extends Controller
     public function categoriesAdminStore(Request $request)
     {
         $validateData = $request->validate([
+            'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
             'active' => 'boolean'
         ]);
@@ -53,9 +54,11 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $validateData = $request->validate([
+            'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
             'active' => 'boolean'
         ]);
+        $category->objectOrder = $validateData['objectOrder'];
         $category->name = $validateData['name'];
         $category->active = $validateData['active'];
         $category->save();

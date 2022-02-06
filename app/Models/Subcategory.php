@@ -11,6 +11,7 @@ class Subcategory extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'objectOrder',
         'name',
         'image',
         'active',

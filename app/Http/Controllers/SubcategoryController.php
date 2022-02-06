@@ -34,17 +34,12 @@ class SubcategoryController extends Controller
     {
 
         $validateData = $request->validate([
+            'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
-
         $subcategory = new Subcategory;
-        /**
-         * here we check if one of the categories is choosen
-         * then we have to check, which category is choosen
-         * we save only one category - the "first" category
-         */
         if($request['categories'] != null)
         {
             $lengthArray = count($request->categories);
@@ -62,26 +57,14 @@ class SubcategoryController extends Controller
         {
             $subcategory->category_id = null;
         }
-        /**
-         * we save the name of the Subcategory
-         */
         $subcategory->name = $request['name'];
-        /**
-         * here we check if we have a uploaded file
-         * if yes we store the file in the IMG folder
-         * and we store the filename in the database
-         */
+        $subcategory->objectOrder = $request['objectOrder'];
         if($request->file != null)
         {
             $imageName = time().'.'.$request->file->extension();
             $request->file->move(public_path('img'), $imageName);
             $subcategory->image = $imageName;
         }
-        /**
-         * here we check if the active checkbox is set
-         * if it is set then we save it
-         * otherwise we push NULL to the database
-         */
         if($request['active'])
         {
             $subcategory->active = $request['active'];
@@ -111,11 +94,11 @@ class SubcategoryController extends Controller
     {
         $subcategory = Subcategory::findOrFail($request->id);
         $validateData = $request->validate([
+            'objectOrder' => 'required|numeric',
             'name' => 'required|string|min:1|max:255|unique:categories,name',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean'
         ]);
-
         if($request['categories'] != null)
         {
             $lengthArray = count($request->categories);
@@ -132,6 +115,10 @@ class SubcategoryController extends Controller
         else
         {
             $subcategory->category_id = null;
+        }
+        if($request->objectOrder != null)
+        {
+            $subcategory->objectOrder = $validateData['objectOrder'];
         }
         if($request->name != null)
         {

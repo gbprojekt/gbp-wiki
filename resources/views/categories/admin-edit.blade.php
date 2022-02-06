@@ -22,6 +22,10 @@
                 <form action="{{ route('categories.adminupdate', $category->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
+                        <label for="objectOrder" class="col-form-label"></label>
+                        <input class="form-control" type="numeric" value="{{ $category->objectOrder }}" id="objectOrder" name="objectOrder" />
+                    </div>
+                    <div class="form-group">
                         <label for="name" class="col-form-label">Name der Kategorie</label>
                         <input class="form-control" type="text" value="{{ $category->name }}" id="name" name="name"/>
                     </div>

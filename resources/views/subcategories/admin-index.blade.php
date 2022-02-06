@@ -31,7 +31,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Reihenfolge</th>
                         <th>Kategorie</th>
                         <th>Subkategorie</th>
                         <th>Bild</th>
@@ -42,7 +42,7 @@
                     <tbody>
                     @foreach($subcategories as $subcategory)
                         <tr>
-                            <td>{{ $subcategory->id }}</td>
+                            <td>{{ $subcategory->objectOrder }}</td>
                             <td>
                                 @foreach($categories as $category)
                                     @if($category->id === $subcategory->category_id)

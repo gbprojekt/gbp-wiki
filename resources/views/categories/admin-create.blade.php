@@ -22,8 +22,12 @@
                 <form action="{{ route('categories.admincreate') }}" method="POST">
                     @csrf
                     <div class="form-group">
+                        <label for="objectOrder" class="col-form-label">Reihenfolge</label>
+                        <input class="form-control" type="numeric" value="{{ old('objectOrder') }}" id="objectOrder" name="objectOrder" />
+                    </div>
+                    <div class="form-group">
                         <label for="name" class="col-form-label">Name der Kategorie</label>
-                        <input class="form-control" type="text" value="{{old('name')}}" id="name" name="name"/>
+                        <input class="form-control" type="text" value="{{ old('name') }}" id="name" name="name"/>
                     </div>
                     <div class="form-group my-4">
                         <p>Aktiv:</p>
