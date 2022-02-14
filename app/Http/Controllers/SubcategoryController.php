@@ -35,8 +35,9 @@ class SubcategoryController extends Controller
 
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
-            'name' => 'required|string|min:1|max:255|unique:categories,name',
+            'name' => 'required|string|min:1|max:255|unique:subcategories,name',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'route' => 'required|string|min:1|max:255|unique:subcategories,route',
             'active' => 'boolean'
         ]);
         $subcategory = new Subcategory;
@@ -65,6 +66,7 @@ class SubcategoryController extends Controller
             $request->file->move(public_path('img'), $imageName);
             $subcategory->image = $imageName;
         }
+        $subcategory->route = $request['route'];
         if($request['active'])
         {
             $subcategory->active = $request['active'];
@@ -95,8 +97,9 @@ class SubcategoryController extends Controller
         $subcategory = Subcategory::findOrFail($request->id);
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
-            'name' => 'required|string|min:1|max:255|unique:categories,name',
+            'name' => 'required|string|min:1|max:255|unique:subcategories,name',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'route' => 'required|string|min:1|max:255|unique:subcategories,route',
             'active' => 'boolean'
         ]);
         if($request['categories'] != null)
@@ -130,6 +133,10 @@ class SubcategoryController extends Controller
             $imageName = time().'.'.$request->file->extension();
             $request->file->move(public_path('img'), $imageName);
             $subcategory->image = $imageName;
+        }
+        if($request['route'] != null)
+        {
+            $subcategory->route = $request['route'];
         }
         if($request->active != null)
         {

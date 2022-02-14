@@ -18,6 +18,7 @@ class CreateSubcategoriesTable extends Migration
             $table->integer('objectOrder');
             $table->string('name');
             $table->string('image')->nullable;
+            $table->string('route');
             $table->boolean('active')->default(0);
             $table->timestamps();
             $table->softDeletes();

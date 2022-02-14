@@ -66,3 +66,13 @@ Route::get('/postsAdminDestroy/{id}',[PostController::class,'postsAdminDestroy']
 Route::get('/userMoneyIndex',[UserViewController::class,'userViewIndex'])->name('userview.moneyindex')->middleware('permissionOrGroup:money|admin');
 Route::get('/userItIndex',[UserViewController::class,'userViewIndex'])->name('userview.itindex')->middleware('permissionOrGroup:it|admin');
 Route::get('/userBusinessIndex',[UserViewController::class,'userViewIndex'])->name('userview.businessindex')->middleware('permissionOrGroup:business|admin');
+
+Route::get('/entstehunggeld',[UserViewController::class,'userViewPosts'])->name('userview.entstehunggeld')->middleware('permissionOrGroup:money|admin');
+Route::get('/inflationdeflation',[UserViewController::class,'userViewPosts'])->name('userview.inflationdeflation')->middleware('permissionOrGroup:money|admin');
+Route::get('/assetarten',[UserViewController::class,'userViewPosts'])->name('userview.assetarten')->middleware('permissionOrGroup:money|admin');
+Route::get('/kostenplaene',[UserViewController::class,'userViewPosts'])->name('userview.kostenplaene')->middleware('permissionOrGroup:money|admin');
+Route::get('/sparplaene',[UserViewController::class,'userViewPosts'])->name('userview.sparplaene')->middleware('permissionOrGroup:money|admin');
+Route::get('/etf',[UserViewController::class,'userViewPosts'])->name('userview.etf')->middleware('permissionOrGroup:money|admin');
+Route::get('/kryptos',[UserViewController::class,'userViewPosts'])->name('userview.kryptos')->middleware('permissionOrGroup:money|admin');
+Route::get('/aktien',[UserViewController::class,'userViewPosts'])->name('userview.aktien')->middleware('permissionOrGroup:money|admin');
+

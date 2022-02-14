@@ -16,7 +16,7 @@ class SubcategorySeeder extends Seeder
     {
         Subcategory::create([
             'objectOrder' => 1,
-            'name' => 'Entstehung des Geldes',
+            'name' => 'Allgemeines',
             'image' => '1.png',
             'active' => 0,
             'category_id' => 1
@@ -24,6 +24,14 @@ class SubcategorySeeder extends Seeder
 
         Subcategory::create([
             'objectOrder' => 2,
+            'name' => 'Entstehung des Geldes',
+            'image' => '1.png',
+            'active' => 0,
+            'category_id' => 1
+        ]);
+
+        Subcategory::create([
+            'objectOrder' => 3,
             'name' => 'Inflation und Deflation',
             'image' => '2.png',
             'active' => 0,
@@ -31,7 +39,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 3,
+            'objectOrder' => 4,
             'name' => 'Assetarten',
             'image' => '3.png',
             'active' => 0,
@@ -39,7 +47,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 4,
+            'objectOrder' => 5,
             'name' => 'Kontenpläne',
             'image' => '4.png',
             'active' => 0,
@@ -47,7 +55,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 5,
+            'objectOrder' => 6,
             'name' => 'Sparpläne',
             'image' => '5.png',
             'active' => 0,
@@ -55,7 +63,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 6,
+            'objectOrder' => 7,
             'name' => 'ETF',
             'image' => '6.png',
             'active' => 0,
@@ -63,7 +71,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 7,
+            'objectOrder' => 8,
             'name' => 'Kryptos',
             'image' => '7.png',
             'active' => 0,
@@ -71,7 +79,7 @@ class SubcategorySeeder extends Seeder
         ]);
 
         Subcategory::create([
-            'objectOrder' => 8,
+            'objectOrder' => 9,
             'name' => 'Aktien',
             'image' => '8.png',
             'active' => 0,

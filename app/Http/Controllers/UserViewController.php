@@ -21,79 +21,79 @@ class UserViewController extends Controller
        return $active;
     }
 
+    private function checkSubcategoryActive($id)
+    {
+        $subcategory = Subcategory::findOrFail($id);
+        $active = 0;
+        if($subcategory->active)
+        {
+            $active = 1;
+        }
+        return $active;
+    }
+
     public function userViewIndex(Request $request)
     {
         $currentURL = $request->segment(1);
+        $cat_id = '0';
 
         if($currentURL === 'userMoneyIndex')
         {
             $checkCategoryActive = $this->checkCategoryActive('1');
-            $cat_id = '1';
+            if($checkCategoryActive === 1)
+            {
+                $cat_id = 1;
+            }
         }
         elseif($currentURL === 'userItIndex')
         {
             $checkCategoryActive = $this->checkCategoryActive('2');
-            $cat_id = '2';
+            if($checkCategoryActive === 1)
+            {
+                $cat_id = 2;
+            }
         }
         elseif($currentURL === 'userBusinessIndex')
         {
             $checkCategoryActive = $this->checkCategoryActive('3');
-            $cat_id = '3';
+            if($checkCategoryActive === 1)
+            {
+                $cat_id = 3;
+            }
         }
 
-
-
-        $index = Subcategory::select('*')
+        if($cat_id > 0)
+        {
+            $subcategories = Subcategory::select('*')
                                 ->where('category_id','=',$cat_id)
                                 ->where('active','=','1')
                                 ->orderBy('objectOrder')
                                 ->get();
+        }
+        else
+        {
+            $subcategories = 'Sorry - hier gibt es noch keine Beiträge.';
+        }
 
+        $countSubcategories = count($subcategories);
 
-
-        return view('userViews.userViewIndex',compact('index'));
+        return view('userViews.userViewIndex',compact('subcategories','countSubcategories'));
     }
 
     public function userViewPosts(Request $request)
     {
-        $currentURL = $request->segment(1);
+        $route = $request->segment(1);
 
-        if($currentURL === 'userMoneyIndex')
-        {
-            $checkCategoryActive = $this->checkCategoryActive('1');
-            $cat_id = '1';
-        }
-        elseif($currentURL === 'userItIndex')
-        {
-            $checkCategoryActive = $this->checkCategoryActive('2');
-            $cat_id = '2';
-        }
-        elseif($currentURL === 'userBusinessIndex')
-        {
-            $checkCategoryActive = $this->checkCategoryActive('3');
-            $cat_id = '3';
-        }
+        $subcategory = Subcategory::select('*')
+                                        ->where('route','=',$route)
+                                        ->get();
 
-        if($checkCategoryActive)
-        {
-            $activePosts = Post::select('*')
-                                    ->where('category_id','=',$cat_id)
-                                    ->where('active','=','1')
-                                    ->orderBy('objectOrder')
-                                    ->get();
-            if($activePosts->count() > 0)
-            {
-                $posts = $activePosts;
-            }
-            else
-            {
-                $posts = NULL;
-            }
-        }
-        else
-        {
-            $posts = NULL;
-        }
+        $posts = Post::select('*')
+                        ->where('subcategory_id','=',$subcategory[0]['id'])
+                        ->where('active','=','1')
+                        ->orderBy('objectOrder')
+                        ->get();
+
         return view('userViews.userViewPosts',compact('posts'));
     }
 }
