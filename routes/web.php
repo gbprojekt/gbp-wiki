@@ -68,7 +68,7 @@ Route::get('/userItIndex',[UserViewController::class,'userViewIndex'])->name('us
 Route::get('/userBusinessIndex',[UserViewController::class,'userViewIndex'])->name('userview.businessindex')->middleware('permissionOrGroup:business|admin');
 
 Route::get('/entstehunggeld',[UserViewController::class,'userViewPosts'])->name('userview.entstehunggeld')->middleware('permissionOrGroup:money|admin');
-Route::get('/inflationdeflation',[UserViewController::class,'userViewPosts'])->name('userview.inflationdeflation')->middleware('permissionOrGroup:money|admin');
+Route::get('/inflationdeflation',[UserViewController::class,'inflationdeflation'])->name('userview.inflationdeflation')->middleware('permissionOrGroup:money|admin');
 Route::get('/assetarten',[UserViewController::class,'userViewPosts'])->name('userview.assetarten')->middleware('permissionOrGroup:money|admin');
 Route::get('/kostenplaene',[UserViewController::class,'userViewPosts'])->name('userview.kostenplaene')->middleware('permissionOrGroup:money|admin');
 Route::get('/sparplaene',[UserViewController::class,'userViewPosts'])->name('userview.sparplaene')->middleware('permissionOrGroup:money|admin');

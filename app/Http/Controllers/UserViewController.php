@@ -96,4 +96,9 @@ class UserViewController extends Controller
 
         return view('userViews.userViewPosts',compact('posts'));
     }
+
+    public function inflationdeflation()
+    {
+        return view('userViews.inflationdeflation');
+    }
 }

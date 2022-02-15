@@ -33,9 +33,7 @@ class PostController extends Controller
     {
         $validateData = $request->validate([
             'objectOrder' => 'required|numeric',
-            'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         $post = new Post;
@@ -93,9 +91,7 @@ class PostController extends Controller
         $post = Post::findOrFail($request->id);
 
         $validateData = $request->validate([
-            'title' => 'string|min:5|max:255',
             'content' => 'required|string|max:10000',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'active' => 'boolean'
         ]);
         if($request['subcategories'] != null)
