@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 @guest
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -32,10 +32,6 @@
                         {{ config('app.name', 'GBP Wiki') }}
                     </a>
                 @endguest
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -61,21 +57,31 @@
                             </li>
                         @endgroup
 
+                        @guest
+                            <li class="mx-1">
+                                <a href="{{ url('/') }}" class="btn btn-light btn-outline-secondary">Home</a>
+                            </li>
+                        @else
+                            <li class="mx-1">
+                                <a href="{{ url('/home') }}" class="btn btn-light btn-outline-secondary">Home</a>
+                            </li>
+                        @endguest
+
                         @anygroup('money','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.moneyindex') }}" class="btn button-red btn-outline-secondary">Finanzen</a>
+                                <a href="{{ route('userview.moneyindex') }}" class="btn btn-light btn-outline-secondary">Finanzen</a>
                             </li>
                         @endanygroup
 
                         @anygroup('it','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.itindex') }}" class="btn button-red btn-outline-secondary">IT</a>
+                                <a href="{{ route('userview.itindex') }}" class="btn btn-light btn-outline-secondary">IT</a>
                             </li>
                         @endanygroup
 
                         @anygroup('business','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.businessindex') }}" class="btn button-red btn-outline-secondary">Business</a>
+                                <a href="{{ route('userview.businessindex') }}" class="btn btn-light btn-outline-secondary">Business</a>
                             </li>
                         @endgroup
                     </ul>
@@ -84,16 +90,6 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-
-                            <!--
-                                der Menü Button Login ist ausgeblendet, da Login die neue Startseite ist
-
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @endif
-                            -->
 
                         @else
                             <li class="nav-item dropdown">
