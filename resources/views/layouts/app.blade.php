@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-200">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
@@ -49,19 +49,25 @@
 
                         @anygroup('money','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.financeArea') }}" class="btn btn-light btn-outline-secondary">Finanzen</a>
+                                <a href="{{ route('financeArea') }}" class="btn btn-light btn-outline-secondary">Finanzen</a>
                             </li>
                         @endanygroup
 
                         @anygroup('it','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.itArea') }}" class="btn btn-light btn-outline-secondary">IT</a>
+                                <a href="{{ route('itArea') }}" class="btn btn-light btn-outline-secondary">IT</a>
                             </li>
                         @endanygroup
 
                         @anygroup('business','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.businessArea') }}" class="btn btn-light btn-outline-secondary">Business</a>
+                                <a href="{{ route('businessArea') }}" class="btn btn-light btn-outline-secondary">Business</a>
+                            </li>
+                        @endgroup
+
+                        @anygroup('money','business','it','admin')
+                            <li class="mx-1">
+                                <a href="{{ route('aboutme') }}" class="btn btn-light btn-outline-secondary">About Me</a>
                             </li>
                         @endgroup
 
@@ -108,7 +114,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

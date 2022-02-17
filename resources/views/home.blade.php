@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8 offset-col-2">
+    <div class="flex flex-row mx-5 my-3">
+        <div class="w-full">
             <div class="card">
                 <div class="card-header">
                     Willkommen bei meinem kleinen Wiki &#128512;
@@ -29,7 +28,11 @@
                     </p>
                 </div>
             </div>
-            <div class="card my-4">
+        </div>
+    </div>
+    <div class="flex flex-row mx-5 my-3">
+        <div class="w-full">
+            <div class="card">
                 <div class="card-header">
                     Disclaimer
                 </div>
