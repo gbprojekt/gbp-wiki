@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserViewController;
-use App\Models\Subcategory;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,43 +32,51 @@ Route::resource('permissions','\App\Http\Controllers\PermissionController')->mid
 Route::resource('groups','\App\Http\Controllers\GroupController')->middleware('permissionOrGroup:admin');
 Route::resource('users','\App\Http\Controllers\UserController')->middleware('permissionOrGroup:admin');
 
-Route::get('/categoriesAdminIndex',[CategoryController::class,'categoriesAdminIndex'])->name('categories.adminindex')->middleware('permissionOrGroup:admin');
-Route::get('/categoriesAdminCreate',[CategoryController::class,'categoriesAdminCreate'])->name('categories.admincreate')->middleware('permissionOrGroup:admin');
-Route::post('/categoriesAdminCreate',[CategoryController::class,'categoriesAdminStore'])->name('categories.adminstore')->middleware('permissionOrGroup:admin');
-Route::get('/categoriesAdminEdit/{id}',[CategoryController::class,'categoriesAdminEdit'])->name('categories.adminedit')->middleware('permissionOrGroup:admin');
-Route::post('/categoriesAdminEdit',[CategoryController::class,'categoriesAdminUpdate'])->name('categories.adminupdate')->middleware('permissionOrGroup:admin');
-Route::get('/categoriesAdminDestroy/{id}',[CategoryController::class,'categoriesAdminDestroy'])->name('categories.admindestroy')->middleware('permissionOrGroup:admin');
-
-Route::get('/subcategoriesAdminIndex',[SubcategoryController::class,'subcategoriesAdminIndex'])->name('subcategories.adminindex')->middleware('permissionOrGroup:admin');
-Route::get('/subcategoriesAdminCreate',[SubcategoryController::class,'subcategoriesAdminCreate'])->name('subcategories.admincreate')->middleware('permissionOrGroup:admin');
-Route::post('/subcategoriesAdminCreate',[SubcategoryController::class,'subcategoriesAdminStore'])->name('subcategories.adminstore')->middleware('permissionOrGroup:admin');
-Route::get('/subcategoriesAdminEdit/{id}',[SubcategoryController::class,'subcategoriesAdminEdit'])->name('subcategories.adminedit')->middleware('permissionOrGroup:admin');
-Route::post('/subcategoriesAdminEdit',[SubcategoryController::class,'subcategoriesAdminUpdate'])->name('subcategories.adminupdate')->middleware('permissionOrGroup:admin');
-Route::get('/subcategoriesAdminDestroy/{id}',[SubcategoryController::class,'subcategoriesAdminDestroy'])->name('subcategories.admindestroy')->middleware('permissionOrGroup:admin');
-
-Route::get('/postsAdminIndex',[PostController::class,'postsAdminIndex'])->name('posts.adminindex')->middleware('permissionOrGroup:admin');
-Route::get('/postsAdminCreate',[PostController::class,'postsAdminCreate'])->name('posts.admincreate')->middleware('permissionOrGroup:admin');
-Route::post('/postsAdminCreate',[PostController::class,'postsAdminStore'])->name('posts.adminstore')->middleware('permissionOrGroup:admin');
-Route::get('/postsAdminEdit/{id}',[PostController::class,'postsAdminEdit'])->name('posts.adminedit')->middleware('permissionOrGroup:admin');
-Route::post('/postsAdminEdit',[PostController::class,'postsAdminUpdate'])->name('posts.adminupdate')->middleware('permissionOrGroup:admin');
-Route::get('/postsAdminDestroy/{id}',[PostController::class,'postsAdminDestroy'])->name('posts.admindestroy')->middleware('permissionOrGroup:admin');
-
 /*
 |--------------------------------------------------------------------------
 | User Routes
 |--------------------------------------------------------------------------
 */
 
-Route::get('/userMoneyIndex',[UserViewController::class,'userViewIndex'])->name('userview.moneyindex')->middleware('permissionOrGroup:money|admin');
-Route::get('/userItIndex',[UserViewController::class,'userViewIndex'])->name('userview.itindex')->middleware('permissionOrGroup:it|admin');
-Route::get('/userBusinessIndex',[UserViewController::class,'userViewIndex'])->name('userview.businessindex')->middleware('permissionOrGroup:business|admin');
+/*
+|       Main Navigation
+*/
 
-Route::get('/entstehunggeld',[UserViewController::class,'userViewPosts'])->name('userview.entstehunggeld')->middleware('permissionOrGroup:money|admin');
-Route::get('/inflationdeflation',[UserViewController::class,'inflationdeflation'])->name('userview.inflationdeflation')->middleware('permissionOrGroup:money|admin');
-Route::get('/assetarten',[UserViewController::class,'userViewPosts'])->name('userview.assetarten')->middleware('permissionOrGroup:money|admin');
-Route::get('/kostenplaene',[UserViewController::class,'userViewPosts'])->name('userview.kostenplaene')->middleware('permissionOrGroup:money|admin');
-Route::get('/sparplaene',[UserViewController::class,'userViewPosts'])->name('userview.sparplaene')->middleware('permissionOrGroup:money|admin');
-Route::get('/etf',[UserViewController::class,'userViewPosts'])->name('userview.etf')->middleware('permissionOrGroup:money|admin');
-Route::get('/kryptos',[UserViewController::class,'userViewPosts'])->name('userview.kryptos')->middleware('permissionOrGroup:money|admin');
-Route::get('/aktien',[UserViewController::class,'userViewPosts'])->name('userview.aktien')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeArea',[ViewController::class,'financeArea'])->name('userview.financeArea')->middleware('permissionOrGroup:money|admin');
+Route::get('/itArea',[ViewController::class,'itArea'])->name('userview.itArea')->middleware('permissionOrGroup:it|admin');
+Route::get('/businessArea',[ViewController::class,'businessArea'])->name('userview.businessArea')->middleware('permissionOrGroup:business|admin');
+
+/*
+|       Finance Routes
+*/
+
+Route::get('/financeMoneyHistory',[ViewController::class,'financeMoneyHistory'])->name('userview.financeMoneyHistory')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeInDeflation',[ViewController::class,'financeInDeflation'])->name('userview.financeInDeflation')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeAssetTypes',[ViewController::class,'financeAssetTypes'])->name('userview.financeAssetTypes')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeAccountTypes',[ViewController::class,'financeAccountTypes'])->name('userview.financeAccountTypes')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeSavings',[ViewController::class,'financeSavings'])->name('userview.financeSavings')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeETF',[ViewController::class,'financeETF'])->name('userview.financeETF')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeKrypto',[ViewController::class,'financeKrypto'])->name('userview.financeKrypto')->middleware('permissionOrGroup:money|admin');
+Route::get('/financeShare',[ViewController::class,'financeShare'])->name('userview.financeShare')->middleware('permissionOrGroup:money|admin');
+
+/*
+|       IT Routes
+*/
+
+Route::get('/itActiveDirectory',[ViewController::class,'itActiveDirectory'])->name('userview.itActiveDirectory')->middleware('permissionOrGroup:it|admin');
+Route::get('/itEndpointManager',[ViewController::class,'itEndpointManager'])->name('userview.itEndpointManager')->middleware('permissionOrGroup:it|admin');
+Route::get('/itNetworking',[ViewController::class,'itNetworking'])->name('userview.itNetworking')->middleware('permissionOrGroup:it|admin');
+Route::get('/itAppManagement',[ViewController::class,'itAppManagement'])->name('userview.itAppManagement')->middleware('permissionOrGroup:it|admin');
+Route::get('/itDataInterfaces',[ViewController::class,'itDataInterfaces'])->name('userview.itDataInterfaces')->middleware('permissionOrGroup:it|admin');
+Route::get('/itDataWarehouse',[ViewController::class,'itDataWarehouse'])->name('userview.itDataWarehouse')->middleware('permissionOrGroup:it|admin');
+Route::get('/itDevelopment',[ViewController::class,'itDevelopment'])->name('userview.itDevelopment')->middleware('permissionOrGroup:it|admin');
+
+/*
+|       Business Routes
+*/
+
+Route::get('/businessSupplyChain',[ViewController::class,'businessSupplyChain'])->name('userview.businessSupplyChain')->middleware('permissionOrGroup:business|admin');
+Route::get('/businessERPSystems',[ViewController::class,'businessERPSystems'])->name('userview.businessERPSystems')->middleware('permissionOrGroup:business|admin');
+Route::get('/businessWMSSystems',[ViewController::class,'businessWMSSystems'])->name('userview.businessWMSSystems')->middleware('permissionOrGroup:business|admin');
+Route::get('/businessCRMSystems',[ViewController::class,'businessCRMSystems'])->name('userview.businessCRMSystems')->middleware('permissionOrGroup:business|admin');
 

@@ -36,26 +36,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        @group('admin')
-                            <li class="mx-1">
-                                <a href="{{ route('permissions.index') }}" class="btn btn-dark btn-outline-secondary">Berechtigungen</a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="{{ route('groups.index') }}" class="btn btn-dark btn-outline-secondary">Gruppen</a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="{{ route('users.index') }}" class="btn btn-dark btn-outline-secondary">Benutzer</a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="{{ route('categories.adminindex') }}" class="btn btn-dark btn-outline-secondary">Kategorien</a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="{{ route('subcategories.adminindex') }}" class="btn btn-dark btn-outline-secondary">Subkategorien</a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="{{ route('posts.adminindex') }}" class="btn btn-dark btn-outline-secondary">Beiträge</a>
-                            </li>
-                        @endgroup
 
                         @guest
                             <li class="mx-1">
@@ -69,21 +49,34 @@
 
                         @anygroup('money','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.moneyindex') }}" class="btn btn-light btn-outline-secondary">Finanzen</a>
+                                <a href="{{ route('userview.financeArea') }}" class="btn btn-light btn-outline-secondary">Finanzen</a>
                             </li>
                         @endanygroup
 
                         @anygroup('it','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.itindex') }}" class="btn btn-light btn-outline-secondary">IT</a>
+                                <a href="{{ route('userview.itArea') }}" class="btn btn-light btn-outline-secondary">IT</a>
                             </li>
                         @endanygroup
 
                         @anygroup('business','admin')
                             <li class="mx-1">
-                                <a href="{{ route('userview.businessindex') }}" class="btn btn-light btn-outline-secondary">Business</a>
+                                <a href="{{ route('userview.businessArea') }}" class="btn btn-light btn-outline-secondary">Business</a>
                             </li>
                         @endgroup
+
+                        @group('admin')
+                            <li class="mx-1">
+                                <a href="{{ route('permissions.index') }}" class="btn btn-dark btn-outline-secondary">Berechtigungen</a>
+                            </li>
+                            <li class="mx-1">
+                                <a href="{{ route('groups.index') }}" class="btn btn-dark btn-outline-secondary">Gruppen</a>
+                            </li>
+                            <li class="mx-1">
+                                <a href="{{ route('users.index') }}" class="btn btn-dark btn-outline-secondary">Benutzer</a>
+                            </li>
+                        @endgroup
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

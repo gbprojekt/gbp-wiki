@@ -24,17 +24,5 @@
 </p>
 <br />
 <p>
-    I implemented in a first step 2 layers for the wiki
-</p>
-<ul>
-    <li>category</li>
-    <li>subcategory</li>
-</ul>
-<br />
-<p>
-    the category represent the main navigation,<br />
-    whereas the subcategory - if filled - is used to show a sub-navigation<br />
-    this sub-navigation is the landing page after you clicked on a button of the main navigation<br />
-    you will see a grid view with the sub-navigation - an image and a title represent a button<br />
-    to save space - the image is hidden on the smartphone
+    under construction
 </p>
